@@ -11,7 +11,7 @@ $role = $_POST['role'];
 $phone_number = $_POST['phone_number'];
 $email = $_POST['email'];
 $address = $_POST['address'];
-$query = "insert into member (id, name, department, role, phone_number, email, address) values ('$id', '$name', '$department', '$role', '$phone_number', '$email', '$address')";
+$query = "insert into member (member_id, name, department, role, phone_number, email, address) values ('$id', '$name', '$department', '$role', '$phone_number', '$email', '$address')";
 $result = mysqli_query($conn, $query);
 
 if(!$result)
@@ -20,11 +20,11 @@ if(!$result)
 }
 else
 {
-    $result = mysqli_query($conn, "select id, name from member where id = $id");
+    $result = mysqli_query($conn, "select member_id, name from member where member_id = $id");
     $row = mysqli_fetch_array($result);
     echo "
     <script>
-        window.alert('성공적으로 입력 되었습니다. 학번 : {$row['id']}, 이름 : {$row['name']}');
+        window.alert('성공적으로 입력 되었습니다. 학번 : {$row['member_id']}, 이름 : {$row['name']}');
     </script>";
     echo "<script>location.replace('member_list.php');</script>";
 }

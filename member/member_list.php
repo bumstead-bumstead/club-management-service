@@ -12,6 +12,15 @@ include "../util.php";
     <h3>회원 목록</h3>
 
     <table class="table table-striped table-bordered">
+        <colgroup>
+            <col style="width: 10%">
+            <col style="width: 15%">
+            <col style="width: 15%">
+            <col style="width: 10%">
+            <col style="width: 15%">
+            <col style="width: 15%">
+            <col style="width: 20%">
+        </colgroup> 
         <tr>
             <th>학번</th>
             <th>이름</th>
@@ -26,7 +35,7 @@ include "../util.php";
         $row_index = 1;
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
-            echo "<td>{$row['id']}</td>";
+            echo "<td>{$row['member_id']}</td>";
             echo "<td>{$row['name']}</td>";
             echo "<td>{$row['department']}</td>";
             echo "<td>{$row['role']}</td>";
@@ -35,7 +44,7 @@ include "../util.php";
             echo "<td>{$row['address']}</td>";
             //echo "<td><a href='product_view.php?product_id={$row['product_id']}'>{$row['product_name']}</a></td>";
             echo "<td width='17%'> 
-                <a href='member/member_view.php?id={$row['id']}'><button class='button primary small'>상세 정보</button></a>
+                <a href='member_view.php?id={$row['member_id']}'><button class='button primary small'>상세 정보</button></a>
                 </td>"; // todo : member_form.php 작성. 삭제 및 수정은 memeber.form.php에서 구현하기
             echo "</tr>";
         }

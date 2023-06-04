@@ -10,7 +10,7 @@ $role = $_POST['role'];
 $phone_number = $_POST['phone_number'];
 $email = $_POST['email'];
 $address = $_POST['address'];
-$query = "update member set name = '$name', department = '$department', role = '$role', phone_number = '$phone_number', email = '$email', address = '$address' where id = '$id'";
+$query = "update member set name = '$name', department = '$department', role = '$role', phone_number = '$phone_number', email = '$email', address = '$address' where member_id = '$id'";
 $result = mysqli_query($conn, $query);
 
 if(!$result)
@@ -19,7 +19,7 @@ if(!$result)
 }
 else
 {
-    $result = mysqli_query($conn, "select id, name from member where id = $id");
+    $result = mysqli_query($conn, "select member_id, name from member where member_id = $id");
     $row = mysqli_fetch_array($result);
     echo "
     <script>

@@ -8,7 +8,7 @@ $conn = dbconnect($host, $dbid, $dbpass, $dbname);
 
 if (array_key_exists("id", $_GET)) {
     $id = $_GET["id"];
-    $query =  "select * from member where id = $id";
+    $query =  "select * from member where member_id = $id";
     $result = mysqli_query($conn, $query);
     $member = mysqli_fetch_array($result);
     if(!$member) {
@@ -20,7 +20,7 @@ if (array_key_exists("id", $_GET)) {
             <h3>회원 상세 정보</h3>
             <p>
                 <label for="id">학번</label>
-                <textarea readonly readonly name="id"><?=$member['id']?></textarea>
+                <textarea readonly readonly name="id"><?=$member['member_id']?></textarea>
             </p>
             <p>
                 <label for="role">직위</label>
@@ -47,8 +47,8 @@ if (array_key_exists("id", $_GET)) {
                 <textarea readonly id="address" name="address"><?=$member['address']?></textarea>
             </p>
             <?
-            echo "<center><a href='member_form.php?id={$member['id']}'><button class='button primary small'>수정하기</button></a>
-            <button onclick='javascript:deleteConfirm({$member['id']})' class='button danger small'>삭제하기</button></center>
+            echo "<center><a href='member_form.php?id={$member['member_id']}'><button class='button primary small'>수정하기</button></a>
+            <button onclick='javascript:deleteConfirm({$member['member_id']})' class='button danger small'>삭제하기</button></center>
             ";
             ?>
             <script>
@@ -59,6 +59,7 @@ if (array_key_exists("id", $_GET)) {
                         return;
                     }
                 }
-            </script>
+            </script> 
     </div>
+<!-- todo : 대출 도서, 참여 행사, 참여 스터디 정보  -->
 <? include("footer.php") ?>

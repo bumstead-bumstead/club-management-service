@@ -9,7 +9,7 @@ $action = "member_insert.php";
 
 if (array_key_exists("id", $_GET)) {
     $id = $_GET["id"];
-    $query =  "select * from member where id = $id";
+    $query =  "select * from member where member_id = $id";
     $result = mysqli_query($conn, $query);
     $member = mysqli_fetch_array($result);
     if(!$member) {
@@ -25,7 +25,7 @@ if (array_key_exists("id", $_GET)) {
             <h3>회원 <?=$mode?></h3>
             <p>
                 <label for="id">학번</label>
-                <input type="number" placeholder="학번 입력" name="id" value="<?=$member['id']?>"/>
+                <input type="number" placeholder="학번 입력" name="id" value="<?=$member['member_id']?>"/>
             </p>
             <p>
                 <label for="role">직위</label>
