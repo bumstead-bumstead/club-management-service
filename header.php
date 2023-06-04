@@ -10,7 +10,7 @@
 <form action="product_list.php" method="post">
     <div class='navbar fixed'>
         <div class='container'>
-            <a class='pull-left title' href="index.php">동아리/학회 관리 시스템</a>
+            <a class='pull-left title' href="/~2018170837/index.php">동아리/학회 관리 시스템</a>
             <ul class='pull-right'>
 
                 <li><a href='/~2018170837/member/member_list.php'>회원</a></li>

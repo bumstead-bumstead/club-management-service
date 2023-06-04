@@ -9,7 +9,9 @@ $conn = dbconnect($host, $dbid, $dbpass, $dbname);
 if (array_key_exists("id", $_GET)) {
     $id = $_GET["id"];
     $query =  "select * from member where member_id = $id";
+    $study_query = "select title, semester, category, type from study, study_participation where study.study_id = study_participation.study_id and study_participation.member_id = $id";
     $result = mysqli_query($conn, $query);
+    $study_query_result = mysqli_query($conn, $study_query);
     $member = mysqli_fetch_array($result);
     if(!$member) {
         msg("존재하지 않는 회원입니다.");
@@ -17,7 +19,14 @@ if (array_key_exists("id", $_GET)) {
 }
 ?>
     <div class="container">
-            <h3>회원 상세 정보</h3>
+            <h3>회원 상세 정보
+                <?
+                echo "<span style='font-size: small;'><a href='member_form.php?id={$member['member_id']}'><button class='button primary small'>수정하기</button></a>
+                <button onclick='javascript:deleteConfirm({$member['member_id']})' class='button danger small'>삭제하기</button></span>
+                ";
+                ?>
+
+            </h3>
             <p>
                 <label for="id">학번</label>
                 <textarea readonly readonly name="id"><?=$member['member_id']?></textarea>
@@ -46,11 +55,7 @@ if (array_key_exists("id", $_GET)) {
                 <label for="address">주소</label>
                 <textarea readonly id="address" name="address"><?=$member['address']?></textarea>
             </p>
-            <?
-            echo "<center><a href='member_form.php?id={$member['member_id']}'><button class='button primary small'>수정하기</button></a>
-            <button onclick='javascript:deleteConfirm({$member['member_id']})' class='button danger small'>삭제하기</button></center>
-            ";
-            ?>
+
             <script>
                 function deleteConfirm(id) {
                     if (confirm("정말 삭제하시겠습니까?") == true){    //확인
@@ -61,5 +66,34 @@ if (array_key_exists("id", $_GET)) {
                 }
             </script> 
     </div>
-<!-- todo : 대출 도서, 참여 행사, 참여 스터디 정보  -->
+
+    <div class = 'container'> 
+        <h4>참여 스터디 정보</h4> <br>
+        <table class="table table-striped table-bordered">
+            <colgroup>
+                <col style="width: 10%">
+                <col style="width: 15%">
+                <col style="width: 15%">
+                <col style="width: 10%">
+            </colgroup> 
+            <tr>
+                <th>제목</th>
+                <th>학기</th>
+                <th>카테고리</th>
+                <th>분류</th>
+            </tr>
+            <?
+            $row_index = 1;
+            while ($row = mysqli_fetch_array($study_query_result)) {
+                echo "<tr>";
+                echo "<td>{$row['title']}</td>";
+                echo "<td>{$row['semester']}</td>";
+                echo "<td>{$row['category']}</td>";
+                echo "<td>{$row['type']}</td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
+<!-- todo : 대출 도서, 참여 행사 정보  -->
 <? include("footer.php") ?>
