@@ -95,5 +95,73 @@ if (array_key_exists("id", $_GET)) {
             ?>
         </table>
     </div>
+
+    <div class = 'container'> 
+        <h4>참여 행사 정보</h4> <br>
+        <table class="table table-striped table-bordered">
+            <colgroup>
+                <col style="width: 10%">
+                <col style="width: 15%">
+                <col style="width: 15%">
+                <col style="width: 10%">
+            </colgroup> 
+            <tr>
+                <th>행사명</th>
+                <th>분류</th>
+                <th>행사일자</th>
+                <th>세부 사항</th>
+            </tr>
+            <?
+            $query = "select * from event natural join event_participation where member_id = $id";
+            $result = mysqli_query($conn, $query);
+
+            while ($row = mysqli_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>{$row['name']}</td>";
+                echo "<td>{$row['type']}</td>";
+                echo "<td>{$row['date']}</td>";
+                echo "<td>{$row['details']}</td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>    
+    </div>
+    <div class='container'>
+        <h4>대출 중인 도서 목록</h4> <br>
+
+        <table class="table table-striped table-bordered">
+            <colgroup>
+                <col style="width: 10%">
+                <col style="width: 15%">
+                <col style="width: 15%">
+                <col style="width: 10%">
+                <col style="width: 15%">
+                <col style="width: 15%">
+            </colgroup> 
+            <tr>
+                <th>도서명</th>
+                <th>저자</th>
+                <th>ISBN</th>
+                <th>대출 횟수</th>
+                <th>출판사</th>
+                <th>판수</th>
+            </tr>
+            <?
+            $query = "select * from book natural join borrowing where member_id = $id";
+            $result = mysqli_query($conn, $query);
+            
+            while ($row = mysqli_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>{$row['title']}</td>";
+                echo "<td>{$row['author']}</td>";
+                echo "<td>{$row['ISBN']}</td>";
+                echo "<td>{$row['number_of_borrows']}</td>";
+                echo "<td>{$row['publisher']}</td>";
+                echo "<td>{$row['edition']}</td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>        
+    </div>
 <!-- todo : 대출 도서, 참여 행사 정보  -->
 <? include("footer.php") ?>
