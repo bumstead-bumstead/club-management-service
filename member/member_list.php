@@ -7,9 +7,18 @@ include "../util.php";
     <?
     $conn = dbconnect($host, $dbid, $dbpass, $dbname);
     $query = "select * from member";
+    if (array_key_exists("search_keyword", $_POST)) {
+        $search_keyword = $_POST["search_keyword"];
+        $query .= " where name like '%$search_keyword%'";
+    }
     $result = mysqli_query($conn, $query);
     ?>
-    <h3>회원 목록</h3>
+    <h3>회원 목록
+        <form action="member_list.php" method="post">
+            <input type="text" name="search_keyword" placeholder="회원 이름 검색">
+        </form>
+
+    </h3>
 
     <table class="table table-striped table-bordered">
         <colgroup>
