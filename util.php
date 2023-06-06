@@ -1,5 +1,5 @@
 <?
-function dbconnect($host, $id, $pass, $db)  //데이터베이스 연결
+function dbconnect($host, $id, $pass, $db)
 {
     $conn = mysqli_connect($host, $id, $pass, $db);
 	
@@ -10,8 +10,14 @@ function dbconnect($host, $id, $pass, $db)  //데이터베이스 연결
     return $conn;
 }
 
-function msg($msg) // 경고 메시지 출력 후 이전 페이지로 이동
+function removeQuotes($str) 
 {
+    return str_replace("'", '', $str);
+}
+
+function msg($msg)
+{
+    $msg = removeQuotes($msg);
     echo "
         <script>
              window.alert('$msg');
@@ -20,7 +26,7 @@ function msg($msg) // 경고 메시지 출력 후 이전 페이지로 이동
     exit;
 }
 
-function s_msg($msg) //일반 메시지 출력
+function s_msg($msg)
 {
     echo "
         <script>
@@ -40,5 +46,12 @@ function check_id($conn, $id)
 	else{
 		return false;
 	}
+}
+
+function addDaysToDate($date, $days) 
+{
+    $dateObject = DateTime::createFromFormat('Y-m-d', $date);
+    $dateObject->modify("+$days days");
+    return $dateObject->format('Y-m-d');
 }
 ?>

@@ -1,8 +1,3 @@
-<!-- todo : 
-1. 스터디 세부사항 확인 (study_record, 참가자 포함) 
-4. 스터디 활동 기록 등록/삭제/조회/수정 기능
-5. 스터디 참가자 추가/삭제 기능
--->
 
 <?
 include "../header.php";
@@ -160,12 +155,7 @@ if (array_key_exists("id", $_GET)) {
                 }
             </script>  
         </table>
-
-        <?
-        echo "<center><a href='study_form.php?id={$study['study_id']}'><button class='button primary small'>수정하기</button></a>
-        <button onclick='javascript:deleteConfirm({$study['study_id']})' class='button danger small'>삭제하기</button></center>
-        ";
-        ?>
+        
         <script>
             function deleteConfirm(id) {
                 if (confirm("정말 삭제하시겠습니까?") == true){

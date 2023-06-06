@@ -14,18 +14,13 @@ $result = mysqli_query($conn, $query);
 
 if(!$result)
 {
-    $error_message = $mysqli_error($conn);
-    echo "
-    <script>
-         window.alert('기록 수정에 실패했습니다. : $error_message');
-         history.go(-1);
-    </script>";
+    msg('기록 수정에 실패했습니다. : '.mysqli_error($conn));
 }
 else
 {
     echo "
     <script>
-        window.alert('성공적으로 수정되었습니다.');
+        window.alert('성공적으로 수정되었습니다. 기록 번호 : $record_id');
     </script>";
     echo "<script>location.replace('study_view.php?id=$study_id');</script>";
 }

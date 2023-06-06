@@ -14,7 +14,7 @@ $ret = mysqli_query($conn, "delete from study_participation where member_id = $i
 	}
 	else
 	{
-	    s_msg ('성공적으로 삭제 되었습니다');
+	    s_msg ('성공적으로 삭제 되었습니다. 회원 번호 : '.$id);
         echo "<script>location.replace('study_view.php?id=$study_id');</script>";
 	}
 ?>

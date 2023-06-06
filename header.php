@@ -17,7 +17,7 @@
                 <li><a href='/~2018170837/study/study_list.php'>스터디/세션</a></li>
                 <li><a href='/~2018170837/event/event_list.php'>행사</a></li>
                 <li><a href='/~2018170837/book/book_list.php'>도서</a></li>
-                <li><a href='k_club.php'>K-club DB</a></li>
+                <li><a href='info.php'>시스템 정보</a></li>
             </ul>
         </div>
     </div>
