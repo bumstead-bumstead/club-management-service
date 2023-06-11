@@ -3,6 +3,9 @@ include "../config.php";
 include "../util.php";
 
 $conn = dbconnect($host,$dbid,$dbpass,$dbname);
+mysqli_query("set autocommit = 0", $conn);
+mysqli_query("set session transaction isolation level serializable", $conn);
+mysqli_query("begin", $conn);
 
 $member_id = $_POST['member_id'];
 $book_id = $_GET['book_id'];
@@ -12,6 +15,7 @@ $date = date("Y-m-d");
 $count_result = mysqli_query($conn, "select count(*) from borrowing where member_id = $member_id");
 $number_of_books = mysqli_fetch_array($count_result);
 if ($number_of_books['count(*)'] >= 2) {
+    mysqli_query("rollback", $conn);
     msg("더 이상 대출할 수 없습니다.");
 }
 
@@ -21,15 +25,19 @@ $insert_result = mysqli_query($conn, $insert_query);
 if(!$insert_result)
 {
     msg('도서 대출 처리에 실패했습니다. : '.mysqli_error($conn));
+    mysqli_query("rollback", $conn);
 }
 else {
     $update_result = mysqli_query($conn, $update_query);
     if(!$update_result)
     {
         msg('도서 대출 처리에 실패했습니다. : '.mysqli_error($conn));
+        mysqli_query("rollback", $conn);    
     }
     else
     {
+        
+    mysqli_query("commit", $conn);
         echo "
         <script>
             window.alert('성공적으로 대출되었습니다. 학번 : $member_id, 도서 번호 : $book_id');
